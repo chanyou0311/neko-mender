@@ -8,7 +8,7 @@ import os.path
 import time
 import matplotlib as plt
 from matplotlib import rcParams
-rcParams['font.family']= "MS Gothic"
+# rcParams['font.family']= "MS Gothic"
 import numpy as np
 import glob
 import MeCab
