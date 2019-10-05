@@ -29,6 +29,28 @@ def fetch():
     return jsonify(d)
 
 
+@app.route('/parfait/',  methods=['POST'])
+def fetch():
+    if request.headers['Content-Type'] != 'application/json':
+        print(request.headers['Content-Type'])
+        d = {"error": {"message": "Error: Content-Type must be application/json."}}
+        return jsonify(d), 400
+
+    data = request.json
+    if data.get("id_str") is None or data.get("screen_name") is None:
+        d = {"error": {"message": "Error: Invalid parameter."}}
+        return jsonify(d), 400
+
+    screen_name = data.get("screen_name")
+    id_str = data.get("id_str")
+
+    reply_text = "#パヘ食べたい https://youtu.be/o1e9hdMjUi0"
+    reply(reply_text, id_str)
+
+    d = {"id_str": id_str, "screen_name": screen_name}
+    return jsonify(d)
+
+
 def wakati_func(screen_name, in_reply_to_status_id):
     return "あなたのおすすめの曲は From Zero feat. 利香 です！"
 
