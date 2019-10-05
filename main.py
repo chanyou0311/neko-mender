@@ -15,6 +15,10 @@ def fetch():
         return jsonify(d), 400
 
     screen_name = data.get("screen_name")
+
+    # screen_nameを使った関数とかに渡す
+    # wakati_func(screen_name)
+
     d = {"screen_name": screen_name}
     return jsonify(d)
 
