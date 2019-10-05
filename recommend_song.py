@@ -149,6 +149,7 @@ def recommend_song(uid, status_id):
     #     print(df)
         return df
     df = getTwitterDF(uid)
+    df = df.drop_duplicates(subset="id")
 
     df["words"] = ""
     for index, row in df.iterrows():

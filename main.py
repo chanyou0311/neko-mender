@@ -22,10 +22,7 @@ def fetch():
     screen_name = data.get("screen_name")
     id_str = data.get("id_str")
 
-    # screen_nameを使った関数とかに渡す
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(asyncio.ensure_future(task(screen_name, id_str)))
-    loop.close()
+    task(screen_name, id_str)
 
     d = {"id_str": id_str, "screen_name": screen_name}
     return jsonify(d)
