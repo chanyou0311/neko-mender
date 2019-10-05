@@ -1,6 +1,14 @@
+import os
 from flask import Flask, jsonify, request
 
+API_KEY = os.getenv("API_KEY")
+API_SECRET_KEY = os.getenv("API_SECRET_KEY")
+
+ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
+ACCESS_TOKEN_SECRET = os.getenv("ACCESS_TOKEN_SECRET")
+
 app = Flask(__name__)
+
 
 @app.route('/fetch/',  methods=['POST'])
 def fetch():
