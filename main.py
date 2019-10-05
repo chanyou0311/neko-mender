@@ -1,6 +1,7 @@
 import os
 from flask import Flask, jsonify, request
 from client import reply
+from recommend_song import recommend_song
 
 app = Flask(__name__)
 
@@ -21,16 +22,17 @@ def fetch():
     id_str = data.get("id_str")
 
     # screen_nameを使った関数とかに渡す
-    text = wakati_func(screen_name, id_str)
+    song_name, file_name = recommend_song(screen_name, id_str)
+    message = f"あなたにおすすめの曲は{song_name}です！"
 
-    reply(text, id_str)
+    reply(message, id_str)
 
     d = {"id_str": id_str, "screen_name": screen_name}
     return jsonify(d)
 
 
 @app.route('/parfait/',  methods=['POST'])
-def fetch():
+def parfait():
     if request.headers['Content-Type'] != 'application/json':
         print(request.headers['Content-Type'])
         d = {"error": {"message": "Error: Content-Type must be application/json."}}
