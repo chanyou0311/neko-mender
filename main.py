@@ -13,19 +13,19 @@ def fetch():
         return jsonify(d), 400
 
     data = request.json
-    if data.get("id") is None or data.get("screen_name") is None:
+    if data.get("id_str") is None or data.get("screen_name") is None:
         d = {"error": {"message": "Error: Invalid parameter."}}
         return jsonify(d), 400
 
     screen_name = data.get("screen_name")
-    id_ = data.get("id")
+    id_str = data.get("id_str")
 
     # screen_nameを使った関数とかに渡す
-    text = wakati_func(screen_name, id_)
+    text = wakati_func(screen_name, id_str)
 
-    reply(text, id_)
+    reply(text, id_str)
 
-    d = {"id": id_, "screen_name": screen_name}
+    d = {"id_str": id_str, "screen_name": screen_name}
     return jsonify(d)
 
 
