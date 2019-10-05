@@ -50,7 +50,7 @@ def recommend_song(uid, status_id):
             error += 1
         return tweet_vec
 
-    model = word2vec.Word2Vec.load("./latest-ja-word2vec-gensim-model/word2vec.gensim.model")
+    model = word2vec.Word2Vec.load("./word2vec_models/word2vec.gensim.model")
     def getTwitterDF(uid):
         twitter = OAuth1Session(twitkey.twkey["CONSUMER_KEY"], twitkey.twkey["CONSUMER_SECRET"],
                                 twitkey.twkey["ACCESS_TOKEN"], twitkey.twkey["ACCESS_TOKEN_SECRET"])

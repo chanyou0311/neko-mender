@@ -1,4 +1,5 @@
 import os
+import asyncio
 from flask import Flask, jsonify, request
 from client import reply
 from recommend_song import recommend_song
@@ -22,13 +23,18 @@ def fetch():
     id_str = data.get("id_str")
 
     # screen_nameを使った関数とかに渡す
-    song_name, file_name = recommend_song(screen_name, id_str)
-    message = f"あなたにおすすめの曲は{song_name}です！"
-
-    reply(message, id_str)
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(asyncio.ensure_future(task(screen_name, id_str)))
+    loop.close()
 
     d = {"id_str": id_str, "screen_name": screen_name}
     return jsonify(d)
+
+def task(screen_name, id_str):
+    song_name, file_name = recommend_song(screen_name, id_str)
+    song_name = "hoge"
+    message = f"あなたにおすすめの曲は{song_name}です！"
+    reply(message, id_str)
 
 
 @app.route('/parfait/',  methods=['POST'])
