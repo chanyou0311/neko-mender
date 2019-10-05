@@ -9,6 +9,7 @@ verify_ssl = true
 flask = "*"
 requests = "*"
 python-dotenv = "*"
+twitter = "*"
 
 [requires]
 python_version = "3.7"

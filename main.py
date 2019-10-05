@@ -1,11 +1,6 @@
 import os
 from flask import Flask, jsonify, request
-
-API_KEY = os.getenv("API_KEY")
-API_SECRET_KEY = os.getenv("API_SECRET_KEY")
-
-ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
-ACCESS_TOKEN_SECRET = os.getenv("ACCESS_TOKEN_SECRET")
+from client import reply
 
 app = Flask(__name__)
 
@@ -18,22 +13,31 @@ def fetch():
         return jsonify(d), 400
 
     data = request.json
-    if data.get("screen_name") is None:
+    if data.get("id") is None or data.get("screen_name") is None:
         d = {"error": {"message": "Error: Invalid parameter."}}
         return jsonify(d), 400
 
     screen_name = data.get("screen_name")
+    id_ = data.get("id")
 
     # screen_nameを使った関数とかに渡す
-    # wakati_func(screen_name)
+    text = wakati_func(screen_name, id_)
 
-    d = {"screen_name": screen_name}
+    reply(text, id_)
+
+    d = {"id": id_, "screen_name": screen_name}
     return jsonify(d)
+
+
+def wakati_func(screen_name, in_reply_to_status_id):
+    return "あなたのおすすめの曲は From Zero feat. 利香 です！"
+
 
 @app.route('/')
 def health_check():
     d = {"status": "ok"}
     return jsonify(d)
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
