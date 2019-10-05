@@ -26,7 +26,7 @@ class Client(object):
         return {x['user']['screen_name'] for x in tweets}
 
     def reply(self, text, id_):
-        tweet = self.client.statuses.update(status=text, in_reply_to_status_id=id_)
+        tweet = self.client.statuses.update(status=text, in_reply_to_status_id=id_, auto_populate_reply_metadata=True)
         return tweet
 
 
