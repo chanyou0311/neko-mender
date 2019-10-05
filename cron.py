@@ -36,7 +36,9 @@ class TwitterClient(object):
         if not tweets:
             return set()
         self.last_id = max(x["id"] for x in tweets)
-        return [(x['user']['screen_name'], x["id_str"]) for x in tweets]
+        return [(x['user']['screen_name'], x["id_str"], "fetch") for x in tweets if ("パフェ" not in x["text"])] +\
+            [(x['user']['screen_name'], x["id_str"], "parfait") for x in tweets if ("パフェ" in x["text"])]
+                
 
 
 sc = Client(*[os.environ[x] for x in ["ACCESS_TOKEN", "ACCESS_TOKEN_SECRET", "API_KEY", "API_SECRET_KEY"]])
@@ -47,7 +49,7 @@ def main():
     users = sc.get_reply_user()
     for u in users:
         result = requests.post(
-            f"http://{HOST}:5000/fetch/",
+            f"http://{HOST}:5000/{u[2]}/",
             data=json.dumps({"screen_name": u[0], "id_str": u[1]}),
             headers={"Content-Type": "application/json"}
         )
