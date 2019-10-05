@@ -29,7 +29,6 @@ def fetch():
 
 def task(screen_name, id_str):
     song_name, file_name = recommend_song(screen_name, id_str)
-    song_name = "hoge"
     message = f"あなたにおすすめの曲は{song_name}です！"
     reply(message, id_str)
 

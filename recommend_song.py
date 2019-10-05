@@ -8,7 +8,7 @@ import os.path
 import time
 import matplotlib as plt
 from matplotlib import rcParams
-# rcParams['font.family']= "MS Gothic"
+rcParams['font.family']= "MS Gothic"
 import numpy as np
 import glob
 import MeCab
@@ -245,12 +245,14 @@ def recommend_song(uid, status_id):
         ax.fill(angles, values, 'b', alpha=0.1)
         filename = f"{uid}_{status_id}.png"
         plt.savefig(filename)
+        plt.close()
         return filename
 
     ##groupby mean
 
     df_score = df.groupby('song').mean().reset_index()
     df_score["score_std"] = preprocessing.minmax_scale(df_score.score)
-    filename = rader_plot(df_score["song"], df_score["score_std"])
+    # filename = rader_plot(df_score["song"], df_score["score_std"])
+    filename = f"{uid}_{status_id}.png"
 
     return result, filename
