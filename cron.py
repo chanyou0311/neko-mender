@@ -30,8 +30,9 @@ class TwitterClient(object):
     def get_reply_user(self):
         if not self.last_id:
             tweets = self.client.statuses.mentions_timeline()
-        else:
-            tweets = self.client.statuses.mentions_timeline(since_id=self.last_id)
+            self.last_id = max(x["id"] for x in tweets)
+            return []
+        tweets = self.client.statuses.mentions_timeline(since_id=self.last_id)
         if not tweets:
             return set()
         self.last_id = max(x["id"] for x in tweets)
